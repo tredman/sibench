@@ -38,3 +38,20 @@ NUM_DOCS=5000000
 NUM_FIELDS=10
 ./sibench -num_indexes=${NUM_INDEXES} -num_fields ${NUM_FIELDS} -num_docs ${NUM_DOCS} -num_workers ${NUM_WORKERS}
 ```
+
+Sample output:
+```
+Host: localhost
+DB: test_db
+Collection: test_coll
+Workers: 10
+Fields: 10
+Indexes: 0
+total ops: 0, errors: 0, ops/sec: 0, errors/sec: 0
+total ops: 17747, errors: 0, ops/sec: 17747, errors/sec: 0
+total ops: 37877, errors: 0, ops/sec: 20130, errors/sec: 0
+total ops: 58255, errors: 0, ops/sec: 20378, errors/sec: 0
+total ops: 78854, errors: 0, ops/sec: 20598, errors/sec: 0
+total ops: 99593, errors: 0, ops/sec: 20739, errors/sec: 0
+...
+```
