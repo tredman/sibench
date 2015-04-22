@@ -66,12 +66,13 @@ func main() {
 	fmt.Printf("Indexes: %d\n", numIndexes)
 
 	session, err := mgo.Dial(testHost)
+	defer session.Close()
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	db := session.DB(testDB)
-        // throw away and recreate the database/collection each time
+	// throw away and recreate the database/collection each time
 	db.DropDatabase()
 	c := db.C(testColl)
 	err = c.Create(&mgo.CollectionInfo{})
@@ -79,7 +80,7 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-        // indexes are created up front
+	// indexes are created up front
 	for i := 0; i < numIndexes; i++ {
 		c.EnsureIndex(mgo.Index{Key: []string{fmt.Sprintf("field_%d", i)}})
 	}
@@ -118,6 +119,7 @@ func main() {
 		go func(id int) {
 			defer wg.Done()
 			session, err := mgo.Dial(testHost)
+			defer session.Close()
 			if err != nil {
 				panic(fmt.Sprintf("worker %d failed to connect, bailing."))
 			}
